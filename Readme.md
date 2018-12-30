@@ -1,9 +1,9 @@
-Line Sticker Downloader
+Line Emoji Downloader
 =
 
 
 <br>
-一个可以下载line表情包的软件<br>
+一个可以下载line emoji小表情的软件.主分支用于下载普通贴纸<br>
 An app that can download LINE stickers.
 <br>
 Recipe: There is a WebView at the buttom of the layout, It is 1dp in height. It load the shop page and get the image link through WebViewClient. Then parse the sticker id, and download the higher resolution edition through the sticker id.<br>
