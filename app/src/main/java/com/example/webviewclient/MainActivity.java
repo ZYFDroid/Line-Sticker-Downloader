@@ -40,7 +40,9 @@ public class MainActivity extends BaseActivity
 				}  
 				@Override
 				public void onPageFinished(WebView p1,String url){
+					
 					super.onPageFinished(p1,url);
+					if(!url.contains("baidu")){
 					Thread t=new Thread(new Runnable(){
 
 							@Override
@@ -48,7 +50,7 @@ public class MainActivity extends BaseActivity
 							{
 								try
 								{
-									Thread.sleep(5000);
+									Thread.sleep(500);
 								}
 								catch (InterruptedException e)
 								{}
@@ -56,12 +58,13 @@ public class MainActivity extends BaseActivity
 							}
 						});
 						t.start();
+						}
 				}
 			
 			
 			@Override
 				public WebResourceResponse shouldInterceptRequest(WebView view,  String url){
-					if(url.endsWith("sticker.png")){
+					if(url.contains("/sticon/") && url.endsWith(".png")){
 					s=s+(url)+"\n";
 					outp("Found URL:"+url);
 				}
@@ -92,7 +95,7 @@ int suc=0;
 		isdownloading=true;
 		c.setEnabled(false);
 		stickerid=((EditText)findViewById(R.id.ed)).getText().toString().trim();
-		wv.loadUrl("http://yabeline.tw/Stickers_Data.php?Number="+stickerid);
+		wv.loadUrl("http://yabeline.tw/Emoji_Data.php?Number="+stickerid);
 		outp("Starting download......");
 	}
 
@@ -104,6 +107,17 @@ int suc=0;
 	
 	
 	public void saveResulet(){
+		
+		runOnUiThread(new Runnable(){
+
+				@Override
+				public void run()
+				{
+					// TODO: Implement this method
+					wv.loadUrl("http://www.baidu.com");
+				}
+			});
+		
 		String[] urls=s.split("\n");
 		for(int i=0;i<urls.length;i++){
 			try{
@@ -164,8 +178,8 @@ int suc=0;
 	public void SavaImage(String imageurl, String path) throws FileNotFoundException, IOException{  
 	
 	
-		getHd(imageurl);
-	
+		//getHd(imageurl);
+		pccid=imageurl.split("/iphone/",2)[1].split("\\.png",2)[0];
 	
 	
         File file=new File(path);  
@@ -181,7 +195,7 @@ int suc=0;
 			URL url;  
 			HttpURLConnection connection=null;  
 			Bitmap bitmap=null;  
-            url = new URL(getHd(imageurl));  
+            url = new URL((imageurl));  
             connection=(HttpURLConnection)url.openConnection();  
             connection.setConnectTimeout(8000); //超时设置  
             connection.setDoInput(true);   
@@ -223,7 +237,7 @@ int suc=0;
 		}  
 	}  
 	String pccid;
-	public String getHd(String url){
+	public String getHdx(String url){
 		if(!dt.isChecked()){return getHd2(url);}
 		String hd="https://sdl-stickershop.line.naver.jp/stickershop/v1/sticker/【sid】/IOS/sticker_animation@2x.png";
 		if(url.contains("/v1/sticker/") && url.contains("/android")){

@@ -5,7 +5,7 @@ android {
     buildToolsVersion "21.1.0"
 
     defaultConfig {
-        applicationId "com.example.webviewclient"
+        applicationId "com.example.webviewclient2"
         minSdkVersion 19
         targetSdkVersion 21
         versionCode 1
